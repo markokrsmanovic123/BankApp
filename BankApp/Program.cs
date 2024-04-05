@@ -1,4 +1,6 @@
 using BankApp.Data;
+using BankApp.DataAccess;
+using BankApp.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(
     builder.Configuration.GetConnectionString("localDb")));
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
