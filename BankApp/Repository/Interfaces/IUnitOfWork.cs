@@ -1,8 +1,8 @@
 ﻿namespace BankApp.Repository.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IAsyncDisposable
     {
         IRaiffeisenRsdRepository RaiffeisenRsdRepository { get; }
-        int Save();
+        Task<int> Save();
     }
 }

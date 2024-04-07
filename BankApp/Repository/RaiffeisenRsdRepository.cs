@@ -4,11 +4,7 @@ using BankApp.Repository.Interfaces;
 
 namespace BankApp.Repository
 {
-    public class RaiffeisenRsdRepository : GenericRepository<RaiffeisenRsd>, IRaiffeisenRsdRepository
+    public class RaiffeisenRsdRepository(ApplicationDbContext context) : GenericRepository<RaiffeisenRsd>(context), IRaiffeisenRsdRepository
     {
-        public RaiffeisenRsdRepository(ApplicationDbContext context) : base(context)
-        {
-
-        }
     }
 }

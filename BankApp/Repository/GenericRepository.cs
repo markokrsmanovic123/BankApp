@@ -1,5 +1,6 @@
 ﻿using BankApp.Data;
 using BankApp.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankApp.Repository
 {
@@ -22,9 +23,9 @@ namespace BankApp.Repository
             _context.Set<T>().AddRange(entities);
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return _context.Set<T>().ToList();
+            return await _context.Set<T>().ToListAsync();
         }
 
         public void Remove(T entity)

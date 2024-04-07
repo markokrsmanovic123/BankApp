@@ -15,14 +15,15 @@ namespace BankApp.DataAccess
 
         public IRaiffeisenRsdRepository RaiffeisenRsdRepository { get; private set; }
 
-        public int Save()
+        public async Task<int> Save()
         {
-            return _context.SaveChanges();
+             return await _context.SaveChangesAsync();
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
-            _context.Dispose();
+            await _context.DisposeAsync();
+            GC.SuppressFinalize(this);
         }
     }
 }

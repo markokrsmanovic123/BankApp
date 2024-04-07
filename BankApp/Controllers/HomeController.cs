@@ -1,4 +1,3 @@
-using BankApp.DataAccess;
 using BankApp.Models;
 using BankApp.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +8,7 @@ namespace BankApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public IUnitOfWork _unitOfWork { get; set; }
+        public IUnitOfWork _unitOfWork { get; private set; }
 
         public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
@@ -17,9 +16,9 @@ namespace BankApp.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var allData = _unitOfWork.RaiffeisenRsdRepository.GetAll();
+            var allData = await _unitOfWork.RaiffeisenRsdRepository.GetAllAsync();
 
             return View(allData);
         }
