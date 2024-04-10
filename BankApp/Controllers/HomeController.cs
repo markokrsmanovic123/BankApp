@@ -23,6 +23,14 @@ namespace BankApp.Controllers
             return View(allData);
         }
 
+        [HttpGet("api/get-all")]
+        public async Task<IActionResult> GetAll()
+        {
+            var allData = await _unitOfWork.RaiffeisenRsdRepository.GetAllAsync();
+
+            return Json(allData);
+        }
+
         public IActionResult Privacy()
         {
             return View();
