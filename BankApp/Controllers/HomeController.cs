@@ -1,5 +1,7 @@
 using BankApp.Models;
+using BankApp.Queries;
 using BankApp.Repository.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,17 +10,17 @@ namespace BankApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public IUnitOfWork _unitOfWork { get; private set; }
+        private readonly IMediator _mediator;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
+        public HomeController(ILogger<HomeController> logger, IMediator mediator)
         {
             _logger = logger;
-            _unitOfWork = unitOfWork;
+            _mediator = mediator;
         }
 
         public async Task<IActionResult> Index()
         {
-            var allData = await _unitOfWork.RaiffeisenRsdRepository.GetAllAsync();
+            var allData = await _mediator.Send(new GetAllRaiffeisenRsdQuery());
 
             return View(allData);
         }
@@ -26,7 +28,7 @@ namespace BankApp.Controllers
         [HttpGet("api/get-all")]
         public async Task<IActionResult> GetAll()
         {
-            var allData = await _unitOfWork.RaiffeisenRsdRepository.GetAllAsync();
+            var allData = await _mediator.Send(new GetAllRaiffeisenRsdQuery());
 
             return Json(allData);
         }
