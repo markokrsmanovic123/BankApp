@@ -2,8 +2,6 @@
 using BankApp.Mappers;
 using BankApp.Repository.Interfaces;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using System.Xml;
 
 namespace BankApp.Handlers
@@ -13,10 +11,10 @@ namespace BankApp.Handlers
         public IUnitOfWork _unitOfWork { get; private set; }
         public ITransactionMapper _transactionMapper;
 
-        public CreateTransactionCommandHandler(IUnitOfWork unitOfWork, ITransactionMapper transaction)
+        public CreateTransactionCommandHandler(IUnitOfWork unitOfWork, ITransactionMapper transactionMapper)
         {
             _unitOfWork = unitOfWork;
-            _transactionMapper = transaction;
+            _transactionMapper = transactionMapper;
         }
 
         public async Task<Unit> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)

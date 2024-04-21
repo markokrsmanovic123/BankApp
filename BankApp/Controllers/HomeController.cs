@@ -2,11 +2,9 @@ using BankApp.Commands;
 using BankApp.Mappers;
 using BankApp.Models;
 using BankApp.Queries;
-using BankApp.Repository.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Xml;
 
 namespace BankApp.Controllers
 {
@@ -14,13 +12,11 @@ namespace BankApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IMediator _mediator;
-        private readonly ITransactionMapper _transactionMapper;
 
-        public HomeController(ILogger<HomeController> logger, IMediator mediator, ITransactionMapper transactionMapper)
+        public HomeController(ILogger<HomeController> logger, IMediator mediator)
         {
             _logger = logger;
             _mediator = mediator;
-            _transactionMapper = transactionMapper;
         }
 
         public async Task<IActionResult> Index()
