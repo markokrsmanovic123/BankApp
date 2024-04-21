@@ -3,6 +3,6 @@
     public interface IUnitOfWork : IAsyncDisposable
     {
         IRaiffeisenRsdRepository RaiffeisenRsdRepository { get; }
-        Task<int> Save();
+        Task<int> SaveChangesAsync();
     }
 }
