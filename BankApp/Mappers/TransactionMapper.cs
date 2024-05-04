@@ -22,7 +22,7 @@ namespace BankApp.Mappers
                 FileName = fileName
             };
 
-            return model;
+            return await Task.FromResult(model);
         }
     }
 }
