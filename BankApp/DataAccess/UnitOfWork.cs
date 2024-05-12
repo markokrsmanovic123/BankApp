@@ -15,7 +15,7 @@ namespace BankApp.DataAccess
 
         public IRaiffeisenRsdRepository RaiffeisenRsdRepository { get; private set; }
 
-        public async Task<int> Save()
+        public async Task<int> SaveChangesAsync()
         {
              return await _context.SaveChangesAsync();
         }

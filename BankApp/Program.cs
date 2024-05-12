@@ -1,5 +1,6 @@
 using BankApp.Data;
 using BankApp.DataAccess;
+using BankApp.Mappers;
 using BankApp.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("localDb")));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ITransactionMapper, TransactionMapper>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

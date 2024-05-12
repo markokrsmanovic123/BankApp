@@ -1,6 +1,6 @@
+using BankApp.Commands;
 using BankApp.Models;
 using BankApp.Queries;
-using BankApp.Repository.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -31,6 +31,14 @@ namespace BankApp.Controllers
             var allData = await _mediator.Send(new GetAllRaiffeisenRsdQuery());
 
             return Json(allData);
+        }
+
+        [HttpPost("api/upload-xml")]
+        public async Task<IActionResult> XmlToDb(IFormFile formFile, string bank, string currency)
+        {
+            await _mediator.Send(new CreateTransactionCommand(formFile, bank, currency));
+
+            return RedirectToAction("GetAll");
         }
 
         public IActionResult Privacy()
