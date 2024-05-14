@@ -1,9 +1,7 @@
 using BankApp.Commands;
-using BankApp.Models;
 using BankApp.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace BankApp.Controllers
 {
@@ -47,9 +45,12 @@ namespace BankApp.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(string errorSource, string errorMessage)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            ViewData["ErrorSource"] = errorSource;
+            ViewData["ErrorMessage"] = errorMessage;
+
+            return View();
         }
     }
 }
