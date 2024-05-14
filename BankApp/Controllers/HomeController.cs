@@ -1,4 +1,5 @@
 using BankApp.Commands;
+using BankApp.Models;
 using BankApp.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -47,10 +48,13 @@ namespace BankApp.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(string errorSource, string errorMessage)
         {
-            ViewData["ErrorSource"] = errorSource;
-            ViewData["ErrorMessage"] = errorMessage;
+            var errorViewModel = new ErrorViewModel
+            {
+                ErrorSource = errorSource,
+                ErrorMessage = errorMessage
+            };
 
-            return View();
+            return View(errorViewModel);
         }
     }
 }

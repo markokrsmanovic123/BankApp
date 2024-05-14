@@ -23,11 +23,14 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.G
 
 builder.Services.AddTransient<GlobalExceptionHandlingMiddleware, GlobalExceptionHandlingMiddleware>();
 
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
+
 Log.Logger = new LoggerConfiguration()
-        .MinimumLevel.Debug()
-        .Enrich.WithExceptionDetails()
-        .WriteTo.Async(a => a.File("Logs/errorLog-.txt", rollingInterval: RollingInterval.Month))
-        .CreateLogger();
+    .ReadFrom.Configuration(configuration)
+    .CreateLogger();
 
 var app = builder.Build();
 

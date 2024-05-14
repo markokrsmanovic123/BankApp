@@ -1,19 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Error";
+ }
 
-    var errorSource = ViewData["ErrorSource"] as string;
-    var errorMessage = ViewData["ErrorMessage"] as string;
-}
+ @model ErrorViewModel
+
 
 <div class="mt-5">
     <h1 class="text-danger">OOOPS :(</h1>
     <h2 class="text-danger">Doslo je do greske!</h2>
 
     <p class="mt-5">
-        <b>Izvor greske</b>: @errorSource
+        <b>Izvor greske</b>: @Model.ErrorSource
     </p>
     <p>
-        <b>Greska:</b> @errorMessage
+        <b>Greska:</b> @Model.ErrorMessage
     </p>
     <p>Molimo vas da kontaktirate podrsku.</p>
 </div>

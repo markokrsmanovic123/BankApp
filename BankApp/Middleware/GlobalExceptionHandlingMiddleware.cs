@@ -24,7 +24,10 @@ namespace BankApp.Middleware
 
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-                context.Response.Redirect($"/Home/Error?errorMessage={ex.Message}&errorSource={ex.Source}");
+                var errorMessage = _webHostEnvironment.IsDevelopment() ? ex.Message : "An unexpected error has occured.";
+                var errorSource = _webHostEnvironment.IsDevelopment() ? ex.Source : null;
+
+                context.Response.Redirect($"/Home/Error?errorMessage={WebUtility.UrlEncode(errorMessage)}&errorSource={WebUtility.UrlEncode(errorSource)}");
             }
         }
     }
