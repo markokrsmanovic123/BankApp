@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RaiffeisenRsd>
+﻿@model FormAndTransactionViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -10,7 +10,7 @@
 </div>
 
 <div>
-    @foreach(var transaction in Model)
+    @foreach(var transaction in Model.RaiffeisenRsd)
     {
         @transaction.Id
         @transaction.Reference

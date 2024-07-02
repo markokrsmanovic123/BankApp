@@ -19,9 +19,11 @@ namespace BankApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allData = await _mediator.Send(new GetAllRaiffeisenRsdQuery());
+            FormAndTransactionViewModel vm = new FormAndTransactionViewModel();
 
-            return View(allData);
+            vm.RaiffeisenRsd = await _mediator.Send(new GetAllRaiffeisenRsdQuery());
+
+            return View(vm);
         }
 
         [HttpGet("api/get-all")]
