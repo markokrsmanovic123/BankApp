@@ -1,8 +1,11 @@
 using BankApp.Data;
 using BankApp.DataAccess;
 using BankApp.Mappers;
+using BankApp.Middleware;
 using BankApp.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Exceptions;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +20,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+
+builder.Services.AddTransient<GlobalExceptionHandlingMiddleware, GlobalExceptionHandlingMiddleware>();
+
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+    .CreateLogger();
 
 var app = builder.Build();
 
@@ -37,6 +51,8 @@ app.UseSwaggerUI();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

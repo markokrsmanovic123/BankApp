@@ -33,7 +33,7 @@ namespace BankApp.Handlers
             }
             catch (Exception ex)
             {
-                throw new XmlException("The file that was provided is not of valid format", ex.InnerException);
+                throw new XmlException("The file that was provided is not of valid format", ex);
             }
 
             var transactionNode = xmlContent.SelectSingleNode("//TransakcioniRacunPrivredaIzvod/Stavke");
