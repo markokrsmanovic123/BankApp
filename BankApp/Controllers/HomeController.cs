@@ -19,7 +19,7 @@ namespace BankApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            FormAndTransactionViewModel vm = new FormAndTransactionViewModel();
+            FormViewModel vm = new FormViewModel();
 
             vm.RaiffeisenRsd = await _mediator.Send(new GetAllRaiffeisenRsdQuery());
 
@@ -32,6 +32,22 @@ namespace BankApp.Controllers
             var allData = await _mediator.Send(new GetAllRaiffeisenRsdQuery());
 
             return Json(allData);
+        }
+
+        public async Task<IActionResult> XmlToDbAction(FormViewModel vm)
+        {
+            ModelState.Remove("RaiffeisenRsd");
+
+            if(!ModelState.IsValid)
+            {
+                vm.RaiffeisenRsd = await _mediator.Send(new GetAllRaiffeisenRsdQuery());
+
+                return View("Index", vm);
+            }
+
+            await _mediator.Send(new CreateTransactionCommand(vm.FormFile, vm.Bank, vm.Currency));
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost("api/upload-xml")]
