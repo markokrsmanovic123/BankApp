@@ -36,8 +36,6 @@ namespace BankApp.Controllers
 
         public async Task<IActionResult> XmlToDbAction(FormViewModel vm)
         {
-            ModelState.Remove("RaiffeisenRsd");
-
             if(!ModelState.IsValid)
             {
                 vm.RaiffeisenRsd = await _mediator.Send(new GetAllRaiffeisenRsdQuery());

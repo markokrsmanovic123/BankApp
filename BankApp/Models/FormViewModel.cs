@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace BankApp.Models
 {
@@ -13,6 +13,8 @@ namespace BankApp.Models
 
         [RegularExpression("^(rsd|eur|usd)$", ErrorMessage = "Vrednost nije validna!")]
         public string Currency { get; set; }
+
+        [ValidateNever]
         public IEnumerable<RaiffeisenRsd> RaiffeisenRsd { get; set; }
     }
 }
