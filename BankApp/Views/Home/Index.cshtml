@@ -4,23 +4,18 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
 <div class="row gx-3 mt-5 gap-0 gap-md-5">
-    <div class="col-12 col-md-2 mb-3 mb-md-0">
+    <div class="col-12 col-md-2 mb-3 mb-md-0 mt-5" id="form">
 
         <form asp-action="XmlToDbAction" asp-controller="Home" method="post" role="form" enctype="multipart/form-data">
 
             <div class="form-group d-flex flex-column">
-                <label for="bank" class="mb-1">Odaberite banku:</label>
-                <div>
+                <label for="bank" class="mb-2">Odaberite banku:</label>
+                <div class="ms-3">
                     <input type="radio" asp-for="Bank" value="raiffeisen" class="form-check-input" id="raiffeisen" checked="checked">
                     <label for="raiffeisen">Raiffeisen banka</label>
                 </div>
-                <div>
+                <div class="ms-3">
                     <input type="radio" asp-for="Bank" value="#" class="form-check-input" id="erste" disabled>
                     <label for="erste">Erste banka</label>
                 </div>
@@ -28,16 +23,16 @@
             </div>
 
             <div class="form-group mt-3 d-flex flex-column">
-                <label for="currency" class="mb-1">Odaberite valutu:</label>
-                <div>
+                <label for="currency" class="mb-2">Odaberite valutu:</label>
+                <div class="ms-3">
                     <input type="radio" asp-for="Currency" value="rsd" class="form-check-input" id="rsd" checked="checked">
                     <label for="rsd">RSD</label>
                 </div>
-                <div>
+                <div class="ms-3">
                     <input type="radio" asp-for="Currency" value="#" class="form-check-input" id="eur" disabled>
                     <label for="eur">EUR</label>
                 </div>
-                <div>
+                <div class="ms-3">
                     <input type="radio" asp-for="Currency" value="#" class="form-check-input" id="usd" disabled>
                     <label for="usd">USD</label>
                 </div>
@@ -45,7 +40,7 @@
             </div>
 
             <div class="form-group mt-3">
-                <label asp-for="FormFile" class="mb-1">Upload File:</label>
+                <label asp-for="FormFile" class="mb-2">Upload File:</label>
                 <input asp-for="FormFile" type="file" class="form-control" />
                 <span asp-validation-for="FormFile" class="text-danger"></span>
             </div>
@@ -57,9 +52,10 @@
     </div>
 
     <div class="col-md-9">
-        <table class="table table-bordered">
+        <table id="transactionTable" class="table table-bordered">
             <thead>
                 <tr>
+                    <th>Select</th>
                     <th>RB</th>
                     <th>Datum prijema/datum izvrsenja</th>
                     <th>Broj naloga</th>
@@ -73,6 +69,7 @@
                 @foreach (var transaction in Model.RaiffeisenRsd)
                 {
                     <tr>
+                        <td><input type="checkbox" class="select-row"/></td>
                         <td>@transaction.Id</td>
                         <td>@transaction.TransactionDate</td>
                         <td>@transaction.Reference</td>
@@ -84,5 +81,12 @@
                 }
             </tbody>
         </table>
+        <div class="d-flex justify-content-end mt-2">
+            <button id="exportButton" class="btn btn-primary">Export to Excel</button>
+        </div>
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+<script src="~/js/ExportToExcel.js" asp-append-version="true"></script>
