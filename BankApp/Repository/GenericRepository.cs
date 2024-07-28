@@ -28,6 +28,11 @@ namespace BankApp.Repository
             return await _context.Set<T>().ToListAsync();
         }
 
+        public async Task<T> GetByIdAsync(int id)
+        {
+            return await _context.Set<T>().FindAsync(id);
+        }
+
         public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);

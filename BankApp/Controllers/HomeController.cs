@@ -56,6 +56,14 @@ namespace BankApp.Controllers
             return RedirectToAction("GetAll");
         }
 
+        [HttpPost]
+        public JsonResult DeleteSelected([FromBody]List<int> ids) 
+        {
+            _mediator.Send(new DeleteTransactionsCommand(ids));
+
+            return Json(new { success = true });
+        }
+
         public IActionResult Privacy()
         {
             return View();
