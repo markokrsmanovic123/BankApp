@@ -15,6 +15,6 @@ namespace BankApp.Models
         public string Currency { get; set; }
 
         [ValidateNever]
-        public IEnumerable<RaiffeisenRsd> RaiffeisenRsd { get; set; }
+        public IEnumerable<Transaction> RaiffeisenRsd { get; set; }
     }
 }

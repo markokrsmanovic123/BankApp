@@ -1,6 +1,6 @@
 ﻿namespace BankApp.Models
 {
-    public class RaiffeisenRsd
+    public class Transaction
     {
         public int Id { get; set; }
         public string TransactionDate { get; set; }

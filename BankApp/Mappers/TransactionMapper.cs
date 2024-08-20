@@ -6,13 +6,13 @@ namespace BankApp.Mappers
 {
     public class TransactionMapper : ITransactionMapper
     {
-        public async Task<RaiffeisenRsd> MapXmlToModel(XmlNode xmlNode, string fileName)
+        public async Task<Transaction> MapXmlToModel(XmlNode xmlNode, string fileName)
         {
             string beforeTrim = xmlNode.Attributes["BrojZaReklamaciju"]?.Value;
             string pattern = @"\d{19}//";
             string afterTrim = Regex.Replace(beforeTrim, pattern, "");
 
-            var model = new RaiffeisenRsd
+            var model = new Transaction
             {
                 TransactionDate = afterTrim,
                 Reference = xmlNode.Attributes["Referenca"]?.Value,

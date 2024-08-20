@@ -5,7 +5,6 @@ using BankApp.Middleware;
 using BankApp.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Serilog.Exceptions;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +30,8 @@ var configuration = new ConfigurationBuilder()
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(configuration)
     .CreateLogger();
+
+builder.Logging.AddSerilog();
 
 var app = builder.Build();
 

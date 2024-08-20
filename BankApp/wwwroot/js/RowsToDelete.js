@@ -6,7 +6,6 @@
         }).get();
 
         if (idsToDelete.length > 0) {
-            // Show confirmation popup
             if (confirm('Are you sure that you want to delete these rows?')) {
                 $.ajax({
                     url: '/Home/DeleteSelected',

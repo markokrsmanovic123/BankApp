@@ -5,6 +5,6 @@ namespace BankApp.Mappers
 {
     public interface ITransactionMapper
     {
-        Task<RaiffeisenRsd> MapXmlToModel(XmlNode xmlNode, string fileName);
+        Task<Transaction> MapXmlToModel(XmlNode xmlNode, string fileName);
     }
 }

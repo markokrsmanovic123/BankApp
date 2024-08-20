@@ -10,10 +10,10 @@ namespace BankApp.DataAccess
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
-            RaiffeisenRsdRepository = new RaiffeisenRsdRepository(_context);
+            RaiffeisenRsdRepository = new TransactionRepository(_context);
         }
 
-        public IRaiffeisenRsdRepository RaiffeisenRsdRepository { get; private set; }
+        public ITransactionRepository RaiffeisenRsdRepository { get; private set; }
 
         public async Task<int> SaveChangesAsync()
         {

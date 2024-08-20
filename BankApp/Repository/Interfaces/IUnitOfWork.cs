@@ -2,7 +2,7 @@
 {
     public interface IUnitOfWork : IAsyncDisposable
     {
-        IRaiffeisenRsdRepository RaiffeisenRsdRepository { get; }
+        ITransactionRepository RaiffeisenRsdRepository { get; }
         Task<int> SaveChangesAsync();
     }
 }

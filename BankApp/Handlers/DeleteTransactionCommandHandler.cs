@@ -22,11 +22,10 @@ namespace BankApp.Handlers
                     var transaction = await UnitOfWork.RaiffeisenRsdRepository.GetByIdAsync(id);
                     UnitOfWork.RaiffeisenRsdRepository.Remove(transaction);
                 }
-            await UnitOfWork.SaveChangesAsync();
+                await UnitOfWork.SaveChangesAsync();
             }
 
             return Unit.Value;
         }
-
     }
 }

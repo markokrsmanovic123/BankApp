@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BankApp.Queries
 {
-    public class GetAllRaiffeisenRsdQuery : IRequest<IEnumerable<RaiffeisenRsd>>
+    public class GetAllRaiffeisenRsdQuery : IRequest<IEnumerable<Transaction>>
     {
     }
 }

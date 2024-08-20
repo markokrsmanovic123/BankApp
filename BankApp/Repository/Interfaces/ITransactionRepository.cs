@@ -2,7 +2,7 @@
 
 namespace BankApp.Repository.Interfaces
 {
-    public interface IRaiffeisenRsdRepository : IGenericRepository<RaiffeisenRsd>
+    public interface ITransactionRepository : IGenericRepository<Transaction>
     {
     }
 }

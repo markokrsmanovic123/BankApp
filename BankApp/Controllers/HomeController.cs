@@ -59,6 +59,24 @@ namespace BankApp.Controllers
         [HttpPost]
         public JsonResult DeleteSelected([FromBody]List<int> ids) 
         {
+            if (!ids.Any()) 
+            { 
+                return Json(new { success = false, message = "No IDs recieved." });
+            }
+
+            _mediator.Send(new DeleteTransactionsCommand(ids));
+
+            return Json(new { success = true });
+        }
+
+        [HttpPost("api/delete-transaction")]
+        public JsonResult DeleteSelectedTransactions(List<int> ids)
+        {
+            if (!ids.Any())
+            {
+                return Json(new { success = false, message = "No IDs recieved." });
+            }
+
             _mediator.Send(new DeleteTransactionsCommand(ids));
 
             return Json(new { success = true });

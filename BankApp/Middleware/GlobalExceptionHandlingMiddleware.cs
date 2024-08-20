@@ -1,15 +1,16 @@
-﻿using Serilog;
-using System.Net;
+﻿using System.Net;
 
 namespace BankApp.Middleware
 {
     public class GlobalExceptionHandlingMiddleware : IMiddleware
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ILogger<GlobalExceptionHandlingMiddleware> _logger;
 
-        public GlobalExceptionHandlingMiddleware(IWebHostEnvironment webHostEnvironment)
+        public GlobalExceptionHandlingMiddleware(IWebHostEnvironment webHostEnvironment, ILogger<GlobalExceptionHandlingMiddleware> logger)
         {
             _webHostEnvironment = webHostEnvironment;
+            _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -20,7 +21,7 @@ namespace BankApp.Middleware
             }
             catch (Exception ex)
             {
-                Log.Error(ex, ex.Message);
+                _logger.LogError(ex, ex.Message);
 
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
