@@ -55,7 +55,6 @@
         <table id="transactionTable" class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Select</th>
                     <th>RB</th>
                     <th>Datum prijema/datum izvrsenja</th>
                     <th>Broj naloga</th>
@@ -69,7 +68,6 @@
                 @foreach (var transaction in Model.RaiffeisenRsd)
                 {
                     <tr>
-                        <td><input type="checkbox" class="select-row"/></td>
                         <td>@transaction.Id</td>
                         <td>@transaction.TransactionDate</td>
                         <td>@transaction.Reference</td>
@@ -81,14 +79,11 @@
                 }
             </tbody>
         </table>
-        <div class="d-flex justify-content-end mt-2">
-            <button id="exportButton" class="btn btn-primary">Export to Excel</button>
+        <div class="d-flex justify-content-end mt-2 gap-1">
             <button id="deleteButton" class="btn btn-danger">Delete Selected</button>
         </div>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-
-<script src="~/js/ExportToExcel.js" asp-append-version="true"></script>
-<script src="~/js/RowsToDelete.js" asp-append-version="true"></script>
+<script src="~/js/DeleteTransactions.js" asp-append-version="true"></script>
