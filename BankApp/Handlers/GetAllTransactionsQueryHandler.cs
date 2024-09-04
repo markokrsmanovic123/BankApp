@@ -5,16 +5,16 @@ using MediatR;
 
 namespace BankApp.Handlers
 {
-    public class GetAllRaiffeisenRsdQueryHandler : IRequestHandler<GetAllRaiffeisenRsdQuery, IEnumerable<Transaction>>
+    public class GetAllTransactionsQueryHandler : IRequestHandler<GetAllTransactionsQuery, IEnumerable<Transaction>>
     {
         public IUnitOfWork _unitOfWork { get; private set; }
 
-        public GetAllRaiffeisenRsdQueryHandler(IUnitOfWork unitOfWork)
+        public GetAllTransactionsQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Transaction>> Handle(GetAllRaiffeisenRsdQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Transaction>> Handle(GetAllTransactionsQuery request, CancellationToken cancellationToken)
         {
             return await _unitOfWork.RaiffeisenRsdRepository.GetAllAsync();
         }

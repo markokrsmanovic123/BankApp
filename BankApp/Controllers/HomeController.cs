@@ -21,7 +21,7 @@ namespace BankApp.Controllers
         {
             FormViewModel vm = new FormViewModel();
 
-            vm.RaiffeisenRsd = await _mediator.Send(new GetAllRaiffeisenRsdQuery());
+            vm.RaiffeisenRsd = await _mediator.Send(new GetAllTransactionsQuery());
 
             return View(vm);
         }
@@ -29,7 +29,7 @@ namespace BankApp.Controllers
         [HttpGet("api/get-all")]
         public async Task<IActionResult> GetAll()
         {
-            var allData = await _mediator.Send(new GetAllRaiffeisenRsdQuery());
+            var allData = await _mediator.Send(new GetAllTransactionsQuery());
 
             return Json(allData);
         }
@@ -38,7 +38,7 @@ namespace BankApp.Controllers
         {
             if(!ModelState.IsValid)
             {
-                vm.RaiffeisenRsd = await _mediator.Send(new GetAllRaiffeisenRsdQuery());
+                vm.RaiffeisenRsd = await _mediator.Send(new GetAllTransactionsQuery());
 
                 return View("Index", vm);
             }
