@@ -19,36 +19,39 @@ namespace BankApp.Handlers
 
         public async Task<Unit> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
         {
-            if (request.FormFile == null || request.FormFile.Length == 0)
+            if (request.FormFiles == null || !request.FormFiles.Any())
             {
                 throw new ArgumentException("No file uploaded");
             }
 
-            var fileName = request.FormFile.FileName;
-            var xmlContent = new XmlDocument();
-            
-            try
+            foreach (var file in request.FormFiles)
             {
-                xmlContent.Load(request.FormFile.OpenReadStream());
+                var fileName = file.FileName;
+                var xmlContent = new XmlDocument();
+
+                try
+                {
+                    xmlContent.Load(file.OpenReadStream());
+                }
+                catch (Exception ex)
+                {
+                    throw new XmlException("The file that was provided is not of valid format", ex);
+                }
+
+                var transactionNode = xmlContent.SelectSingleNode("//TransakcioniRacunPrivredaIzvod/Stavke");
+
+                if (transactionNode == null)
+                {
+                    throw new XmlException("XML structure is not valid.");
+                }
+
+                var transactionModel = await _transactionMapper.MapXmlToModel(transactionNode, fileName);
+
+                _unitOfWork.RaiffeisenRsdRepository.Add(transactionModel);
+                await _unitOfWork.SaveChangesAsync();
             }
-            catch (Exception ex)
-            {
-                throw new XmlException("The file that was provided is not of valid format", ex);
-            }
 
-            var transactionNode = xmlContent.SelectSingleNode("//TransakcioniRacunPrivredaIzvod/Stavke");
-
-            if (transactionNode == null) 
-            {
-                throw new XmlException("XML structure is not valid.");
-            }
-
-            var transactionModel = await _transactionMapper.MapXmlToModel(transactionNode, fileName);
-
-            _unitOfWork.RaiffeisenRsdRepository.Add(transactionModel);
-            await _unitOfWork.SaveChangesAsync();
-
-            return Unit.Value;
+        return Unit.Value;
         }
     }
 }

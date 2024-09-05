@@ -6,7 +6,7 @@ namespace BankApp.Models
     public class FormViewModel
     {
         [Required(ErrorMessage = "Fajl je obavezan!")]
-        public IFormFile FormFile { get; set; }
+        public IEnumerable<IFormFile> FormFiles { get; set; }
 
         [RegularExpression("^(raiffeisen|erste)$", ErrorMessage = "Vrednost nije validna!")]
         public string Bank { get; set; }
@@ -15,6 +15,6 @@ namespace BankApp.Models
         public string Currency { get; set; }
 
         [ValidateNever]
-        public IEnumerable<Transaction> RaiffeisenRsd { get; set; }
+        public IEnumerable<Transaction> Transactions { get; set; }
     }
 }

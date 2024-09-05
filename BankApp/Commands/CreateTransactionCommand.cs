@@ -4,13 +4,13 @@ namespace BankApp.Commands
 {
     public class CreateTransactionCommand : IRequest<Unit>
     {
-        public IFormFile FormFile { get; set; }
+        public IEnumerable<IFormFile> FormFiles { get; set; }
         public string Bank { get; set; }
         public string Currency { get; set; }
 
-        public CreateTransactionCommand(IFormFile formFile, string bank, string currency)
+        public CreateTransactionCommand(IEnumerable<IFormFile> formFiles, string bank, string currency)
         {
-            FormFile = formFile;
+            FormFiles = formFiles;
             Bank = bank;
             Currency = currency;
         }

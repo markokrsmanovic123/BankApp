@@ -21,7 +21,7 @@ namespace BankApp.Controllers
         {
             FormViewModel vm = new FormViewModel();
 
-            vm.RaiffeisenRsd = await _mediator.Send(new GetAllTransactionsQuery());
+            vm.Transactions = await _mediator.Send(new GetAllTransactionsQuery());
 
             return View(vm);
         }
@@ -38,20 +38,20 @@ namespace BankApp.Controllers
         {
             if(!ModelState.IsValid)
             {
-                vm.RaiffeisenRsd = await _mediator.Send(new GetAllTransactionsQuery());
+                vm.Transactions = await _mediator.Send(new GetAllTransactionsQuery());
 
                 return View("Index", vm);
             }
 
-            await _mediator.Send(new CreateTransactionCommand(vm.FormFile, vm.Bank, vm.Currency));
+            await _mediator.Send(new CreateTransactionCommand(vm.FormFiles, vm.Bank, vm.Currency));
 
             return RedirectToAction("Index");
         }
 
         [HttpPost("api/upload-xml")]
-        public async Task<IActionResult> XmlToDb(IFormFile formFile, string bank, string currency)
+        public async Task<IActionResult> XmlToDb(IEnumerable<IFormFile> formFiles, string bank, string currency)
         {
-            await _mediator.Send(new CreateTransactionCommand(formFile, bank, currency));
+            await _mediator.Send(new CreateTransactionCommand(formFiles, bank, currency));
 
             return RedirectToAction("GetAll");
         }
